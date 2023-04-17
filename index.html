@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator using HTML and CSS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Container for the document -->
+    <div class="container">
+        <div class="calculator">
+            <form>
+                <!-- Display Screen  -->
+                <div class="display">
+                    <input type="text" name="display" id="screen">
+                </div>
+                <!-- Buttons-->
+                <div>
+                    <input type="button" value="AC" onclick="display.value =''" class="operator">
+                    <input type="button" value="DE" onclick="display.value = display.value.toString().slice(0,-1)" class="operator">
+                    <input type="button" value="." onclick=addoperator(this.value) class="operator">
+                    <input type="button" value="/" onclick=addoperator(this.value)>
+                </div>
+                <div>
+                    <input type="button" value="7" onclick=add(this.value)>
+                    <input type="button" value="8" onclick=add(this.value)>
+                    <input type="button" value="9" onclick=add(this.value)>
+                    <input type="button" value="*" onclick=addoperator(this.value) class="operator">
+                </div>
+                <div>
+                    <input type="button" value="4" onclick=add(this.value)>
+                    <input type="button" value="5" onclick=add(this.value)>
+                    <input type="button" value="6" onclick=add(this.value)>
+                    <input type="button" value="-" onclick=addoperator(this.value) class="operator">
+                </div>
+                <div>
+                    <input type="button" value="1" onclick=add(this.value)>
+                    <input type="button" value="2" onclick=add(this.value)>
+                    <input type="button" value="3" onclick=add(this.value)>
+                    <input type="button" value="+" onclick=addoperator(this.value) class="operator">
+                </div>
+                <div>
+                    <input type="button" value="00" onclick=add(this.value)>
+                    <input type="button" value="0" onclick=add(this.value)>
+                    <input type="button" value="=" onclick=calc() class="equal operator">
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <script>
+        let ev = true
+
+        // add operator function which adds the operator
+
+        function addoperator(a){
+            value = document.getElementById('screen').value.toString().slice(-1)
+            if(value == "+" || value == "-" || value == "*" || value =="/" || value == "." || value == ""){
+                return
+            }
+            else{
+                document.getElementById('screen').value+=a
+            }
+        }
+
+        // calc function which calculated the string
+
+        function calc(){
+
+            value = document.getElementById('screen').value.toString().slice(-1)
+            if(value == "+" || value == "-" || value == "*" || value =="/" || value == "." || value == ""){
+                alert("Please enter valid input")
+                return
+            }
+
+            value = document.getElementById('screen').value
+            if(value.includes("+") || value.includes("-") || value.includes("*") || value.includes("/")){
+                try{
+                    document.getElementById('screen').value = eval(document.getElementById('screen').value.toString());
+                    ev = false
+                    return
+                }catch{
+                    document.getElementById('screen').value = "ERROR"
+                    ev = false
+                    return
+                }
+
+            }
+        }
+
+        // add function which concatenate the value to the present string
+
+
+        function add(a){
+            if(ev==true){
+                document.getElementById('screen').value+=a;
+            }else{
+                document.getElementById('screen').value=a;
+                ev=true
+            }
+        }
+    </script>
+</body>
+</html>
